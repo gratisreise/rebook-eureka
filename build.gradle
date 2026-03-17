@@ -1,15 +1,11 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.3.13'
-    id 'io.spring.dependency-management' version '1.1.7'
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
 }
 
 group = 'com.example'
 version = ''
-
-bootRun {
-    jvmArgs = ['-Xmx1024m', '-Xms512m']
-}
 
 java {
     toolchain {
@@ -25,11 +21,6 @@ configurations {
 
 repositories {
     mavenCentral()
-}
-
-ext {
-    set('sentryVersion', "8.13.2")
-    set('springCloudVersion', "2023.0.5")
 }
 
 dependencies {
