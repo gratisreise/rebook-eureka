@@ -34,8 +34,6 @@ Spring Cloud Netflix Eureka 기반 서비스 등록 및 발견 시스템
 
 ## 2. 목차
 
-- [1. 개요](#1-개요)
-- [2. 목차](#2-목차)
 - [3. 주요 기능](#3-주요-기능)
 - [4. 기술 스택](#4-기술-스택)
 - [5. 프로젝트 구조](#5-프로젝트-구조)
@@ -88,81 +86,26 @@ Spring Cloud Netflix Eureka 기반 서비스 등록 및 발견 시스템
 
 ## 4. 기술 스택
 
-### 4.1 백엔드 프레임워크
+**백엔드**: Spring Boot 3.3.13 · Java 17 · Lombok
 
-| 기술 | 버전 | 용도 |
-|------|------|------|
-| **Spring Boot** | 3.3.13 | 애플리케이션 프레임워크 |
-| **Java** | 17 | 프로그래밍 언어 |
-| **Lombok** | - | 보일러플레이트 코드 제거 |
+**마이크로서비스**: Spring Cloud 2023.0.5 · Netflix Eureka Server
 
-### 4.2 마이크로서비스 인프라 (Spring Cloud)
+**모니터링**: Spring Actuator · Prometheus · Micrometer · Sentry 8.13.2
 
-| 기술 | 버전 | 용도 |
-|------|------|------|
-| **Netflix Eureka Server** | 2023.0.5 | 서비스 디스커버리 레지스트리 |
-| **Spring Cloud** | 2023.0.5 | 마이크로서비스 기반 클라우드 지원 |
-
-### 4.3 모니터링 & 로깅
-
-| 기술 | 버전 | 용도 |
-|------|------|------|
-| **Spring Actuator** | - | 헬스체크 및 메트릭 엔드포인트 |
-| **Prometheus** | - | 메트릭 수집 및 모니터링 |
-| **Micrometer Prometheus** | - | Prometheus 형식 메트릭 변환 |
-| **Sentry** | 8.13.2 | 실시간 에러 트래킹 및 알림 |
-
-### 5.4 빌드 & 배포
-
-| 기술 | 버전 | 용도 |
-|------|------|------|
-| **Gradle** | 8.14.2 | 빌드 자동화 도구 |
-| **Docker** | - | 컨테이너화 및 배포 |
+**빌드 & 배포**: Gradle 8.14.2 · Docker
 
 ---
 ## 5. 프로젝트 구조
 
-### 주요 디렉토리 설명
-
-| 디렉토리 | 역할 | 주요 기능 |
-|---------|------|----------|
-| **src/main/java/** | 애플리케이션 소스 | `@EnableEurekaServer`가 적용된 단일 메인 클래스 |
-| **src/main/resources/** | 설정 파일 | 프로필별 YAML 설정 (dev, prod) |
-| **gradle/** | Gradle Wrapper | Gradle 빌드 도구 실행 파일 |
-
-
 ```
 rebook-eureka-server/
-├── src/
-│   ├── main/
-│   │   ├── java/com/example/rebookeurekaserver/
-│   │   │   └── RebookEurekaServerApplication.java  # 메인 애플리케이션
-│   │   │       @SpringBootApplication
-│   │   │       @EnableEurekaServer
-│   │   │
-│   │   └── resources/
-│   │       ├── application.yaml               # 기본 설정
-│   │       │   - server.port: 8761
-│   │       │   - spring.application.name: rebook-eureka
-│   │       │   - spring.profiles.active: prod
-│   │       │   - sentry.dsn: ${SENTRY_DSN}
-│   │       │
-│   │       ├── application-dev.yaml           # 개발 환경 설정
-│   │       │   - eureka.server.enable-self-preservation: false
-│   │       │   - management.endpoints.web.exposure.include: "*"
-│   │       │
-│   │       └── application-prod.yaml          # 운영 환경 설정
-│   │           - eureka.server.enable-self-preservation: true
-│   │           - management.endpoints.web.exposure.include: "prometheus,health,info"
-│   │
-│   └── test/
-│       └── java/com/example/rebookeurekaserver/
-│           └── RebookEurekaServerApplicationTests.java
-│
-├── build.gradle                               # Gradle 빌드 설정
-├── settings.gradle                            # Gradle 프로젝트 설정
-├── gradlew / gradlew.bat                      # Gradle Wrapper 실행 파일
-├── Dockerfile                                 # Docker 멀티 스테이지 빌드
-├── CLAUDE.md                                  # Claude Code 가이드
-└── README.md                                  # 프로젝트 문서 (본 파일)
+├── src/main/
+│   ├── java/.../RebookEurekaServerApplication.java  # @EnableEurekaServer
+│   └── resources/
+│       ├── application.yaml          # 기본 설정 (port: 8761, profile: prod)
+│       ├── application-dev.yaml      # 개발용 (Self-Preservation 비활성화)
+│       └── application-prod.yaml     # 운영용 (Self-Preservation 활성화)
+├── build.gradle
+├── Dockerfile
+└── README.md
 ```
