@@ -1,6 +1,6 @@
 # Rebook Eureka Server
 
-<div align="center">
+<div >
 
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.13-brightgreen)
 ![Spring Cloud](https://img.shields.io/badge/Spring%20Cloud-2023.0.5-blue)
